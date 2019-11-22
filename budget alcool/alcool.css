@@ -1,0 +1,89 @@
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+th{
+	border-top: 4px solid #404040;
+	border-bottom: 3px solid #404040;
+	border-right: 2px solid #404040;
+	border-left: 2px solid #404040;
+	width: 100px;
+}
+table th:first-child {
+	border-top-left-radius: 10px;
+	border-left: 4px solid #404040;
+}
+table th:last-child {
+	border-top-right-radius: 10px;
+	border-right: 4px solid #404040;
+}
+
+td {
+	text-align: center;
+	vertical-align: middle;
+	padding:1px;
+}
+td:not(.tools) {
+	border: 1px solid #404040;
+	width: 100px;
+}
+td:first-child {
+	border-left: 2px solid #404040;
+}
+td:nth-last-child(4) {
+	border-right: 2px solid #404040;
+}
+td input, td select {
+	width: 100px;
+	margin: 0;
+	border: 0;
+}
+:focus {
+	outline: 0;
+}
+
+tr:last-child td {
+	border: 0;
+	background-color: white !important;
+}
+tr:nth-last-child(2) td:not(.tools) {
+	border-bottom: 2px solid #404040;
+}
+tr:nth-last-child(2) td:first-child, tr:nth-last-child(2) td:first-child input {
+	border-bottom-left-radius: 10px;
+}
+tr:nth-last-child(2) td:nth-last-child(4), tr:nth-last-child(2) td:nth-last-child(4) select {
+	border-bottom-right-radius: 10px;
+}
+tr:nth-child(2n+1) td:not(.tools), tr:nth-child(2n+1) td input, tr:nth-child(2n+1) td select {
+	background-color: #FFB0AA;
+}
+td img {
+	border: 1px solid #a7afba;
+	width :12px;
+	padding: 4px;
+	border-radius: 50%;
+	display: block;
+}
+.tools:hover img{
+display:none;
+}
+.tools .hover{
+display:none;
+}
+.tools:hover .hover{
+display:block;
+border-color: #404040
+}
+
+#addAlcool {
+	border-radius: 5px;
+	border:0;
+	padding: 5px 30px;
+	margin: 5px;
+}
+#addAlcool:hover {
+	background-color: grey;
+}
+

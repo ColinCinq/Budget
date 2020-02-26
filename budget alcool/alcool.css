@@ -22,7 +22,7 @@ table th:last-child {
 td {
 	text-align: center;
 	vertical-align: middle;
-	padding:1px;
+	padding:0;
 }
 td:not(.tools) {
 	border: 1px solid #404040;
@@ -36,7 +36,7 @@ td:nth-last-child(4) {
 }
 td input, td select {
 	width: 100px;
-	margin: 0;
+	margin: 1px;
 	border: 0;
 }
 :focus {

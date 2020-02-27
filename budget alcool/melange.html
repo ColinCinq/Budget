@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>mélange</title>
+	<script type="text/javascript">
+		
+	</script>
+</head>
+<body>
+
+	<table id="listeAlcool">
+		<tr>
+			<th>Nom</th>
+			<th>Alcool</th>
+			<th>%</th>
+			<th>Slider</th>
+			<th>Quantités totales</th>
+			<th>Nombre à acheter</th>
+		</tr>
+		<tr id="modele" hidden>
+			<td class='input1'><input type='text' name='nom'></td>
+			<td class='input2'><input type='text' name='marque'></td>
+			<td class='input3'><input type='text' name='prixHT' onchange="ChkFloat(this);"></td>
+			<td class='select1'>
+				<select name='TVA'>
+					<option disabled selected></option>
+					<option>5.5</option>
+					<option>10</option>
+					<option>20</option>
+				</select>
+			</td>
+			<td class='input4'><input type='text' name='volume' onchange="ChkFloat(this);"></td>
+			<td class='select2'>
+				<select name='type'>
+					<option disabled selected></option>
+					<option>Bouteille</option>
+					<option>Brick</option>
+					<option>Pack</option>
+					<option>Cubi</option>
+				</select>
+			</td>
+			<td class='tools valid'>
+				<img class='show' src='image/ok grey.png'>
+				<img class='hover' src='image/ok black.png'>
+			</td>
+			<td class='tools del'>
+				<img class='show' src='image/trash grey.png'>
+				<img class='hover' src='image/trash black.png'>
+			</td>
+			<td class='tools edit' hidden>
+				<img class='show' src='image/edit grey.png'>
+				<img class='hover' src='image/edit black.png'>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="6"><button id="addAlcool">Ajouter un alcool</button></td>			
+		</tr>
+	</table>
+
+</body>
+</html>

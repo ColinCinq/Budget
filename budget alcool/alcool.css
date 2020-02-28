@@ -65,7 +65,7 @@ tr:nth-child(2n+1) td:not(.tools), tr:nth-child(2n+1) td input, tr:nth-child(2n+
 }
 td img {
 	border: 1px solid #a7afba;
-	width :12px;
+	width :22px;
 	padding: 4px;
 	border-radius: 50%;
 	display: block;

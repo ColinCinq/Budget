@@ -3,41 +3,196 @@
 <head>
 	<title>mélange</title>
 	<script type="text/javascript">
-		
+		function ChkFloat(obj){
+		  	let d = obj.value;
+		  	let ret = true;
+
+		  	if(d.match(/-/))
+		    	signe="-";// signe negatif 
+		  	else
+		    	signe="";
+		    
+		  	d = d.replace(",","."); // norme = point
+		  	d = d.replace(/[\+\- ]/g,""); // le signe et le point ne compte pas dans la longueur
+		  	let tab = (d + ".").split(".");
+
+		  	if(d.length == 0 || isNaN(tab[0]) || isNaN(tab[1]))
+				ret = false;
+
+			if (ret)
+				Valid(obj);
+			else
+				Invalid(obj);
+
+		  	obj.value=signe + d;
+		}
+
+		function Valid(elem){
+			elem.parentNode.style.backgroundColor = '';
+			elem.style.backgroundColor = '';
+		}
+
+		function Invalid(elem){
+			elem.parentNode.style.backgroundColor = 'red';
+			elem.style.backgroundColor = 'red';
+		}
+
+		let inputVal = new Object();
+		let nbMelange = 0;
+
+		window.addEventListener("load",function () {
+
+			let but = document.getElementById("addMelange");
+
+			but.addEventListener("click", function () {
+
+				nbMelange++;
+				inputVal["melange" + nbMelange] = new Object();
+
+				let cln = document.getElementById("modele").cloneNode(true);
+				let tools = cln.getElementsByClassName("tools");
+				
+				but.parentNode.parentNode.parentNode.insertBefore(cln, but.parentNode.parentNode);
+				cln.removeAttribute("hidden");
+				cln.setAttribute("id", "melange" + nbMelange);
+
+				cln.getElementsByClassName("del")[0].addEventListener("click", function () {
+					this.parentNode.parentNode.removeChild(this.parentNode);
+				});
+				cln.getElementsByClassName("valid")[0].addEventListener("click", function () {
+					for (var i = 1; i <= 3; i++) {
+						inputVal[cln.id]["input"+i] = {"value" : cln.children[i-1].children[0].value, 
+													   "input" : "<input type='text' name='nom' value='" + cln.children[i-1].children[0].value + "'>"};
+					}
+					inputVal[cln.id]["input4"] = {"value" : cln.children[4].children[0].value, 
+												  "input" : "<input type='text' name='nom' value='" + cln.children[4].children[0].value + "'>"};
+					
+					let select1;
+					switch(cln.children[3].children[0].value) {
+						case '5.5':
+							select1 = "<option selected>5.5</option>"+
+									  "<option>10</option>"+
+									  "<option>20</option>";
+							break;
+						case '10':
+							select1 = "<option>5.5</option>"+
+									  "<option selected>10</option>"+
+									  "<option>20</option>";
+							break;
+						case '20':
+							select1 = "<option>5.5</option>"+
+									  "<option>10</option>"+
+									  "<option selected>20</option>";
+							break;
+						default:
+							select1 = "<option disabled selected></option>"+
+									  "<option>5.5</option>"+
+									  "<option>10</option>"+
+									  "<option>20</option>";
+							break;
+					}
+					let select2;
+					switch(cln.children[5].children[0].value) {
+						case 'Bouteille':
+							select2 = "<option selected>Bouteille</option>"+
+									  "<option>Brick</option>"+
+									  "<option>Pack</option>"+
+									  "<option>Cubi</option>";
+							break;
+						case 'Brick':
+							select2 = "<option>Bouteille</option>"+
+									  "<option selected>Brick</option>"+
+									  "<option>Pack</option>"+
+									  "<option>Cubi</option>";
+							break;
+						case 'Pack':
+							select2 = "<option>Bouteille</option>"+
+									  "<option>Brick</option>"+
+									  "<option selected>Pack</option>"+
+									  "<option>Cubi</option>";
+							break;
+						case 'Cubi':
+							select2 = "<option>Bouteille</option>"+
+									  "<option>Brick</option>"+
+									  "<option>Pack</option>"+
+									  "<option selected>Cubi</option>";
+							break;
+						default:
+							select2 = "<option disabled selected></option>"+
+									  "<option>Bouteille</option>"+
+									  "<option>Brick</option>"+
+									  "<option>Pack</option>"+
+									  "<option>Cubi</option>";
+							break;
+					}
+					inputVal[cln.id]["select1"] = {"value" : cln.children[3].children[0].value,
+												   "input" : "<select name='TVA'>"+ select1 + "</select>"};
+					inputVal[cln.id]["select2"] = {"value" : cln.children[5].children[0].value,
+												   "input" : "<select name='type'>"+ select2 + "</select>"};
+
+					for(let champInput in inputVal[cln.id]) {
+						cln.getElementsByClassName(champInput)[0].innerText = inputVal[cln.id][champInput].value;
+					}
+					for (let i = 0 ; i<3 ; i++) {
+						tools[i].toggleAttribute("hidden");
+					}
+				});
+				cln.getElementsByClassName("edit")[0].addEventListener("click", function () {
+					for(let champInput in inputVal[cln.id]) {
+						cln.getElementsByClassName(champInput)[0].innerHTML = inputVal[cln.id][champInput].input;
+					}
+					for (let i = 0 ; i<3 ; i++) {
+						tools[i].toggleAttribute("hidden");
+					}
+				});
+			});
+		});
 	</script>
+	<link rel="stylesheet" type="text/css" href="alcool.css">
+	<style type="text/css">
+		.inputMultiple1 div {
+			display: flex;
+		}
+	</style>
 </head>
 <body>
 
-	<table id="listeAlcool">
+	<table id="listeMelange">
 		<tr>
 			<th>Nom</th>
 			<th>Alcool</th>
 			<th>%</th>
 			<th>Slider</th>
-			<th>Quantités totales</th>
-			<th>Nombre à acheter</th>
 		</tr>
 		<tr id="modele" hidden>
 			<td class='input1'><input type='text' name='nom'></td>
-			<td class='input2'><input type='text' name='marque'></td>
-			<td class='input3'><input type='text' name='prixHT' onchange="ChkFloat(this);"></td>
-			<td class='select1'>
-				<select name='TVA'>
+			<td class='selectMultiple1'>
+				<select name='alcool1'>
+					<option disabled selected></option>
+					<option>5.5</option>
+					<option>10</option>
+					<option>20</option>
+				</select>
+				<select name='alcool2'>
+					<option disabled selected></option>
+					<option>5.5</option>
+					<option>10</option>
+					<option>20</option>
+				</select>
+				<select name='alcool3'>
 					<option disabled selected></option>
 					<option>5.5</option>
 					<option>10</option>
 					<option>20</option>
 				</select>
 			</td>
-			<td class='input4'><input type='text' name='volume' onchange="ChkFloat(this);"></td>
-			<td class='select2'>
-				<select name='type'>
-					<option disabled selected></option>
-					<option>Bouteille</option>
-					<option>Brick</option>
-					<option>Pack</option>
-					<option>Cubi</option>
-				</select>
+			<td class='inputMultiple1'>
+				<div><input type='text' name='percent1' onchange="ChkFloat(this);"><span>%</span></div>
+				<div><input type='text' name='percent2' onchange="ChkFloat(this);"><span>%</span></div>
+				<div><input type='text' name='percent3' onchange="ChkFloat(this);"><span>%</span></div>
+			</td>
+			<td class='silder'>
+				
 			</td>
 			<td class='tools valid'>
 				<img class='show' src='image/ok grey.png'>
@@ -53,7 +208,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="6"><button id="addAlcool">Ajouter un alcool</button></td>			
+			<td colspan="4"><button id="addMelange">Ajouter un mélange</button></td>			
 		</tr>
 	</table>
 

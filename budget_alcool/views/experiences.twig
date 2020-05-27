@@ -1,0 +1,15 @@
+{% extends 'base.twig' %}
+
+{% block title %}Experiences{% endblock %}
+
+{% block body %}
+
+	<h1>Mes experiences</h1>
+	<div class="expAff">
+		{% for row in rows %}
+			<div><p class="title">{{ row.entreprise }}</p><p class="subtitle">{{ row.poste }} / {{ row.date }}</p></div>
+			<div><p>{{ row.description }}</p></div>
+		{% endfor %}
+	</div>
+
+{% endblock %}

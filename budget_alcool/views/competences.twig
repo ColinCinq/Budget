@@ -1,0 +1,44 @@
+{% extends 'base.twig' %}
+
+{% block title %}Competence{% endblock %}
+
+{% block body %}
+	<h1>Mes languages de prédilections</h1>
+	<div class="progAff">
+		<div>
+			<p class="title">Logiciels</p>
+			{% for prog in data.languages.logiciel %}
+				<div class="item-display">
+					<div class="nom"><p>{{ prog.nom }}</p></div>
+					<div class="niveau"><div class="bar"> <div class="barint" style="width:{{ prog.niveau * 100  }}%"></div></div></div>
+				</div>
+			{% endfor %}
+		</div>
+		<div>
+			<p class="title">Web</p>
+			<p class="subtitle">front</p>
+			{% for prog in data.languages.web.front %}
+				<div class="item-display">
+					<div class="nom"><p>{{ prog.nom }}</p></div>
+					<div class="niveau"><div class="bar"> <div class="barint" style="width:{{ prog.niveau * 100  }}%"></div></div></div>
+				</div>
+			{% endfor %}
+			<p class="subtitle">back</p>
+			{% for prog in data.languages.web.back %}
+				<div class="item-display">
+					<div class="nom"><p>{{ prog.nom }}</p></div>
+					<div class="niveau"><div class="bar"> <div class="barint" style="width:{{ prog.niveau * 100  }}%"></div></div></div>
+				</div>
+			{% endfor %}
+		</div>
+		<div>
+			<p class="title">BDD</p>
+			{% for prog in data.languages.requetage %}
+				<div class="item-display">
+					<div class="nom"><p>{{ prog.nom }}</p></div>
+					<div class="niveau"><div class="bar"> <div class="barint" style="width:{{ prog.niveau * 100  }}%"></div></div></div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Home{% endblock %}</title>
+        <link href="style.css" rel="stylesheet" />
+        <link rel="shortcut icon" href="img/favicon.ico" />
+    </head>
+    <body>
+        <div id="page">
+            {% include './partials/header.twig' %}
+            <div id="core">
+                {% block body %}{% endblock %}
+            </div>
+            {% include './partials/footer.twig' %}
+        </div>
+        <script type="text/javascript" src="script.js"></script>
+    </body>
+</html>

@@ -7,11 +7,9 @@ var conn = mysql.createConnection({
   password: ""
 })
 conn.connect(function(err) {
-    if (err){
-        throw err;
-    }
+    if (err) throw err;
 })
 
-require('./Users')(conn)
-
-module.exports.MyModel = model;
+module.exports = {
+	Users: require('./Users')(conn)
+}

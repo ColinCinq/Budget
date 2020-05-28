@@ -45,5 +45,24 @@
 			</form>
 			<a href="signup">nouveau compte</a>
 		</div>
+		<script>
+			$("#login").submit(function(event){
+				event.preventDefault();
+				var form_data = $(this).serialize();
+				$.ajax({
+					url : '/login/ajax',
+					type: 'post',
+					data : form_data
+				}).done(function(res){
+					if (res.result == "success")
+						window.location.replace('/')
+					else if (res.result == "error"){
+						$('.error').remove()
+						$('h1').after('<div class="error">'+res.errorLog+'</div>')
+					} else 
+						console.error("Erreur inconnue, contactez l'administrateur")
+				});
+			});
+		</script>
 	</body>
 </html>

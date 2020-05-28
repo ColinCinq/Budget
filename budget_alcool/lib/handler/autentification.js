@@ -17,19 +17,18 @@ module.exports = (db) => {
 			let username = req.body.username
 			let password = req.body.password
 			if (username && password) {
-				let ret = db.Users.login(username, password)
-				console.log(ret)
-				if (ret == false)
-					res.send({error: "identifiant ou mot de passe incorrect"})
-				else {
-					req.session.loggedin = true
-					req.session.username = ret
-					res.redirect('/')
-					res.end()
-				}
+				db.Users.login(username, password, function (err, result) {
+					if (result == false){
+						res.send({result: "error", errorLog: 'identifiant ou mot de passe incorrect'})
+					} else {
+						req.session.loggedin = true
+						req.session.username = result
+						res.send({result: "success"})
+						res.end()
+					}
+				})
 			} else {
-				res.send('Please enter Username and Password!')
-				res.end()
+				res.send({result: "error", errorLog:"Merci d'entrer un identifiant et un mot de passe!"})
 			}
 		},
 
@@ -37,11 +36,29 @@ module.exports = (db) => {
 			res.render("autentification/signUp.html.twig")
 		},
 		ajaxSignUp: function (req,res) {
-			if(db.Users.isAlreadyExisting(req.body.username)){
-				res.send({error: "Nom d'utilisateur deja utilisé"})
-			} else {
-				if(db.Users.register(req.body.username, req.body.password)){
-					res.rediect('/login').send({sucess: "Utilisateur créé avec succès"})
+			db.Users.isAlreadyExisting(req.body.username, req.body.email, function (err, result) {
+
+				let msgErrorLog = ""
+				if (result.username)
+					msgErrorLog += "Nom d'utilisateur deja utilisé"
+				if (msgErrorLog != "")
+					msgErrorLog += '<br>'
+				if (result.email)
+					msgErrorLog += "Email deja utilisé"
+
+				if (msgErrorLog != ""){
+					res.send({result: "error", errorLog : msgErrorLog})
+					res.end()
+				} else {
+					db.Users.register(req.body.username, req.body.password, req.body.email, function (err, result) {
+						if (result){
+							res.send({result: "success", msg: "Utilisateur créé avec succès"})
+							res.end()
+						} else{
+							res.send({result: "error", errorLog: err})
+							res.end()
+						}
+					})
 				}
 			}
 			res.end()

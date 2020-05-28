@@ -60,7 +60,13 @@
 					type: 'post',
 					data : form_data
 				}).done(function(res){
-					$('h1').after('<div class="error">'+res.errorLog+'</div>')
+					if (res.result == "success")
+						window.location.replace('/login')
+					else if (res.result == "error"){
+						$('.error').remove()
+						$('h1').after('<div class="error">'+res.errorLog+'</div>')
+					} else 
+						console.error("Erreur inconnue, contactez l'administrateur")
 				});
 			});
 		</script>

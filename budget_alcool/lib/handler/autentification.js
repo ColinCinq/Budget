@@ -19,16 +19,16 @@ module.exports = function (db) {
 			if (username && password) {
 				db.Users.login(username, password, function (err, result) {
 					if (result == false){
-						res.send({errorLog: 'identifiant ou mot de passe incorrect'})
+						res.send({result: "error", errorLog: 'identifiant ou mot de passe incorrect'})
 					} else {
 						req.session.loggedin = true
 						req.session.username = result
-						res.redirect('/')
+						res.send({result: "success"})
 						res.end()
 					}
 				})
 			} else {
-				res.send({errorLog:'Please enter Username and Password!'})
+				res.send({result: "error", errorLog:"Merci d'entrer un identifiant et un mot de passe!"})
 			}
 		},
 
@@ -41,19 +41,23 @@ module.exports = function (db) {
 				let msgErrorLog = ""
 				if (result.username)
 					msgErrorLog += "Nom d'utilisateur deja utilisé"
+				if (msgErrorLog != "")
+					msgErrorLog += '<br>'
 				if (result.email)
 					msgErrorLog += "Email deja utilisé"
 
 				if (msgErrorLog != ""){
-					res.send({errorLog : msgErrorLog})
+					res.send({result: "error", errorLog : msgErrorLog})
 					res.end()
 				} else {
 					db.Users.register(req.body.username, req.body.password, req.body.email, function (err, result) {
 						if (result){
-							res.redirect('/login')
+							res.send({result: "success", msg: "Utilisateur créé avec succès"})
 							res.end()
-						} else
-							res.send({errorLog: err})
+						} else{
+							res.send({result: "error", errorLog: err})
+							res.end()
+						}
 					})
 				}
 			})

@@ -1,14 +1,5 @@
 module.exports = (conn) => {
 	return {
-<<<<<<< HEAD
-		isAlreadyExisting: (username) => {
-			conn.query('SELECT COUNT(*) FROM Users WHERE username = ?', [username], function(err, rows, fields) {
-    		    if (err) throw err
-   			    if(rows.length ==0)
-        		    return false
-        		return true
-    		})
-=======
 		isAlreadyExisting: function (username, email, callback) {
 			let ret = {username: true, email: true}
 			conn.query('SELECT COUNT(*) AS tmp FROM Users WHERE username = ?', [username], function(err, rows, fields) {
@@ -24,7 +15,6 @@ module.exports = (conn) => {
 					return callback(null, ret)
 				})
 			})
->>>>>>> color picker bugfix code clean global et debut ecran setup/alcohol
 		},
 
 		register: (username,password) => {

@@ -1,16 +1,15 @@
 module.exports = function (db) {
 
-	return {
-		renderIndex: (req, res) => {
-			if(/*TODO cookie userId*/ === undefined){
-				res.redirect('/login')
-			}
-			res.render("index.twig")
-		},
-		require('./autentification')(db)
+	var autentification = require('./autentification')(db)
 
-		render404: (req, res) => {
-			res.render("404.twig")
+	return {
+		renderIndex: function (req, res) {
+			res.render("index.html.twig")
+		},
+		autentification: autentification, 
+
+		render404: function (req, res) {
+			res.render("404.html.twig")
 		}
 	};
 }

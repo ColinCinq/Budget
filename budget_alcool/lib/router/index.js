@@ -1,8 +1,8 @@
 module.exports = function (server, handler) {
-	
-	server.get('/', handler.renderIndex)
+
+	server.get('/', handler.autentification.requiresLogin, handler.renderIndex)
 	require('./autentification')(server, handler)
 
-	app.get('*', handler.render404)
+	server.get('*', handler.render404)
 
 }

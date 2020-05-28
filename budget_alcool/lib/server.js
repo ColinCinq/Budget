@@ -3,6 +3,6 @@ var express = require('express'),
 	server;
 
 server = express()
-config.applyConfiguration(server);
+config.applyConfiguration(server)
 
-module.exports = server;
+module.exports = server

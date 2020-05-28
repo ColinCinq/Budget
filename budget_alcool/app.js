@@ -3,7 +3,7 @@ var twig = require('twig'),
     db = require('./lib/db'),
     handler = require('./lib/handler')(db);
 
-require('./lib/router')(server, handler);
+require('./lib/router')(server, handler)
 
-console.log( app.settings.port )
-app.listen( app.settings.port ) 
+console.log( server.settings.port )
+server.listen( server.settings.port ) 

@@ -1,38 +1,55 @@
-module.exports = function (db) {
+module.exports = (db) => {
 
 	return {
-		renderLogin: (req, res) => {
-			res.render("login.twig")
-		},
-		ajaxLogin: (req,res) => {
-			let ret = bd.Users.login(req.body.username, req.body.password)
-			if (!ret)
-				res.send({error: "identifiant ou mot de passe incorrect"})
-			else {
-				// TODO cookie
-				res.send({redirect: '/'})
+		requiresLogin: function (req, res, next) {
+			if (req.session && req.session.loggedin) {
+				next()	
+			} else {
+				res.redirect('/login')
+				res.end()
 			}
 		},
 
-		renderSignUp: (req, res) => {
-			res.render("signUp.twig")
+		renderLogin: function (req, res) {
+			res.render("autentification/login.html.twig")
 		},
-		ajaxSignUp: (req,res) => {
+		ajaxLogin: function (req,res) {
+			let username = req.body.username
+			let password = req.body.password
+			if (username && password) {
+				let ret = db.Users.login(username, password)
+				console.log(ret)
+				if (ret == false)
+					res.send({error: "identifiant ou mot de passe incorrect"})
+				else {
+					req.session.loggedin = true
+					req.session.username = ret
+					res.redirect('/')
+					res.end()
+				}
+			} else {
+				res.send('Please enter Username and Password!')
+				res.end()
+			}
+		},
+
+		renderSignUp: function (req, res) {
+			res.render("autentification/signUp.html.twig")
+		},
+		ajaxSignUp: function (req,res) {
 			if(db.Users.isAlreadyExisting(req.body.username)){
 				res.send({error: "Nom d'utilisateur deja utilisé"})
 			} else {
-				if(bd.Users.register(req.body.username, req.body.password)){
-					res.send({
-						sucess: "Utilisateur créé avec succès",
-						redirect: '/login'
-					})
+				if(db.Users.register(req.body.username, req.body.password)){
+					res.rediect('/login').send({sucess: "Utilisateur créé avec succès"})
 				}
 			}
+			res.end()
 		},
 
-		renderLogOut: (req, res) => {
+		renderLogOut: function (req, res) {
 			//TODO suppr cookie
-			res.render("logout.twig")
+			res.render("autentification/logout.html.twig")
 		}
 	}
 }

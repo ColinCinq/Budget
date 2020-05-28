@@ -1,19 +1,18 @@
 var express = require('express'),
 	bodyParser = require('body-parser'),
-	cookieParser = require('cookie-parser')
+	session = require('express-session')
 	
-
 // Export method to be compliant with Express 3.0
-var applyConfiguration = function (server) {
-	var app = server
+exports.applyConfiguration = function (app) {
 
-	app.configure(function () {
-		app.use(bodyParser.urlencoded({ extended: true }))
-		app.use(cookieParser())
-		app.use(express.static('../public'))
-		app.set('port', process.env.PORT || 3000)
-	});
+	app.use(bodyParser.urlencoded({ extended: true }))
+	app.use(bodyParser.json())
+	app.use(session({
+		secret: 'jughnrjibHBVvgygvYIVFTDFDfHIvghjk',
+		resave: true,
+		saveUninitialized: true
+	}))
+	app.use(express.static('../public'))
+	app.set('port', process.env.PORT || 8000)
 
 }
-
-exports.applyConfiguration = applyConfiguration;

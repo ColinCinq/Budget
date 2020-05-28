@@ -10,18 +10,20 @@ module.exports = (conn) => {
 		},
 
 		register: (username,password) => {
-			conn.query('INSERT INTO Users (username, password) VALUES ("?", PASSWORD("?"))',[username,password], function(err, rows, fields) {
+			conn.query('INSERT INTO Users (username, password) VALUES (?, PASSWORD(?))',[username,password], function(err, rows, fields) {
 				if (err) throw err
 				return true
 			})
 		},
 
 		login: (username,password) => {
-			conn.query('SELECT id FROM Users WHERE username = "?", password=PASSWORD("?"))',[username,password], function(err, rows, fields) {
+			console.log(username)
+			console.log(password)
+			conn.query('SELECT username FROM Users WHERE username = ? AND password=PASSWORD(?)',[username,password], function(err, rows, fields) {
 				if (err) throw err
-				if(rows.length == 0)
+				if(rows.length == undefined)
 					return false
-				return rows.id
+				return rows.username
 			})
 		},
 

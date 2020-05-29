@@ -10,9 +10,13 @@ exports.applyConfiguration = function (app) {
 	app.use(bodyParser.json())
 	app.set('view engine', 'twig')
 	app.use(session({
-		secret: 'jughnrjibHBVvgygvYIVFTDFDfHIvghjk',
+		secret: 'jughnrjiébHBV@vgyg::vYIV{FTDFDfHIvghjk',
 		resave: true,
-		saveUninitialized: true
+		saveUninitialized: true,
+		duration: 30 * 60 * 1000,
+		activeDuration: 5 * 60 * 1000,
+		httpOnly: true,
+	  	ephemeral: true
 	}))
 	app.use(express.static('../public'))
 	app.set('port', process.env.PORT || 8000)

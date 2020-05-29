@@ -2,12 +2,11 @@ module.exports = function (db) {
 
 	return {
 		requiresLogin: function (req, res, next) {
-			if (req.session && req.session.loggedin) {
+			console.log(req.session)
+			if (req.session && req.session.loggedin)
 				next()	
-			} else {
+			else
 				res.redirect('/login')
-				res.end()
-			}
 		},
 
 		renderLogin: function (req, res) {
@@ -64,8 +63,10 @@ module.exports = function (db) {
 		},
 
 		renderLogOut: function (req, res) {
-			//TODO suppr cookie
-			res.render("autentification/logout.html.twig")
+			console.log(req.session)
+			req.session = null
+			console.log(req.session)
+			res.render("autentification/logOut.html.twig")
 		}
 	}
 }

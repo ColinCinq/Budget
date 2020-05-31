@@ -9,6 +9,7 @@ module.exports = function (db) {
 		autentification: autentification, 
 
 		render404: function (req, res) {
+			console.log(req.url)
 			res.render("404.html.twig")
 		}
 	};

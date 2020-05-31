@@ -63,10 +63,12 @@ module.exports = function (db) {
 		},
 
 		renderLogOut: function (req, res) {
-			console.log(req.session)
-			req.session = null
-			console.log(req.session)
+			req.session.destroy()
 			res.render("autentification/logOut.html.twig")
+		},
+
+		forgotPassword: function (req, res) {
+			res.render("autentification/forgotPassword.html.twig")
 		}
 	}
 }

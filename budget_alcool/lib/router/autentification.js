@@ -4,6 +4,7 @@ module.exports = function (server, handler) {
 	server.get('/signup', handler.autentification.renderSignUp)
 	server.post('/login/ajax', handler.autentification.ajaxLogin)
 	server.post('/signup/ajax', handler.autentification.ajaxSignUp)
-	server.get('/logout',handler.autentification.renderLogOut)
+	server.get('/logout', handler.autentification.renderLogOut)
+	server.get('/forgotpassword', handler.autentification.forgotPassword)
 
 }

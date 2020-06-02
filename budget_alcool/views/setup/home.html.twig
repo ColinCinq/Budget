@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Configurer votre budget{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col">
+			<h1>Alcool</h1>
+			{% for alcohol in alcohols %}
+				{% include 'alcohol.html.twig'%}
+			{% endfor %}
+			{% include 'alcohol.html.twig'%}
+		</div>
+	</div>
+{% endblock %}

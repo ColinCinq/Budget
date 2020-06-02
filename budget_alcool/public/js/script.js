@@ -1,6 +1,6 @@
 window.onload = function(){
     document.getElementById("header-responsive").addEventListener("click", function () {
-    	toggleResponsiveHeader(this);
+      toggleResponsiveHeader(this);
     });
 }
 

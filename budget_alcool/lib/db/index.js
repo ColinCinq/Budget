@@ -7,7 +7,7 @@ var conn = mysql.createConnection({
 	password: "2dadzEAxw@FpN8V"
 })
 conn.connect(function(err) {
-    if (err) throw err;
+	if (err) throw err;
 })
 
 module.exports = {

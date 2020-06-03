@@ -2,14 +2,22 @@
 
 {% block title %}Configurer votre budget{% endblock %}
 
+{% block style %}
+	<link rel="stylesheet" href="css/color-picker.css">
+{% endblock %}
+
 {% block body %}
 	<div class="row">
-		<div class="col">
+		<div class="col-6">
 			<h1>Alcool</h1>
 			{% for alcohol in alcohols %}
-				{% include 'alcohol.html.twig'%}
+				{% include 'setup/alcohol.html.twig'%}
 			{% endfor %}
-			{% include 'alcohol.html.twig'%}
+			{% include 'setup/alcohol.html.twig'%}
 		</div>
 	</div>
+{% endblock %}
+
+{% block script %}
+	<script src="js/color-picker.js"></script>
 {% endblock %}

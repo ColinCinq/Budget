@@ -3,18 +3,18 @@ module.exports = function (conn) {
 		isAlreadyExisting: function (username, email, callback) {
 			let ret = {username: true, email: true}
 			conn.query('SELECT COUNT(*) AS tmp FROM Users WHERE username = ?', [username], function(err, rows, fields) {
-    		    if (err) throw err
-   			    if(rows[0].tmp == 0)
-        		    ret.username = false
+				if (err) throw err
+				if(rows[0].tmp == 0)
+					ret.username = false
 
-        		conn.query('SELECT COUNT(*) AS tmp FROM Users WHERE email = ?', [email], function(err, rows, fields) {
-	    		    if (err) throw err
-	   			    if(rows[0].tmp == 0)
-	        		    ret.email = false
+				conn.query('SELECT COUNT(*) AS tmp FROM Users WHERE email = ?', [email], function(err, rows, fields) {
+					if (err) throw err
+					if(rows[0].tmp == 0)
+						ret.email = false
 
-	    			return callback(null, ret)
-	    		})
-    		})
+					return callback(null, ret)
+				})
+			})
 		},
 
 		register: function (username, password, email, callback) {

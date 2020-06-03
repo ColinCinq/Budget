@@ -1,12 +1,46 @@
-<div class="row">
-	<form>
-		<div class="form-row">
-			<div class="col-10">
+<form>
+	<div class="form-row">
+		<div class="col-10">
+			<div class="form-row">
+				
+				<label class="col col-form-label">Couleur :</label>
+				<div class="col dropdown color-picker">
+					<input type="hidden" name="color">
+					<button class="icon btn rounded-pill w-75 border-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">.</button>
+					<div class="picker dropdown-menu" data-hsv="41,10,100">
+						<div class="board"><div class="choice"></div></div>
+						<div class="rainbow"></div>
+					</div>
+				</div>
+				<label class="col col-form-label">Nom :</label>
+				<div class="col">
+					<input type="text" name="name" class="form-control">
+				</div>
+				<label class="col col-form-label">taux d'alcool :</label>
+				<div class="col">
+					<input type="number" name="alcoholVolume" class="form-control">%
+				</div>
+				<label class="col col-form-label">Description :</label>
+
+				<div class="w-100"></div>
+
+				<label class="col col-form-label">PrixHT :</label>
+				<div class="col">
+					<input type="number" name="prixHT" class="form-control">€
+				</div>
+				<label class="col col-form-label">TVA :</label>
+				<div class="col">
+					<input type="number" name="prixHT" class="form-control">%
+				</div>
+				<label class="col col-form-label">Volume de vente :</label>
+				<div class="col">
+					<input type="number" name="alcoholVolume" class="form-control">Litre(s)
+				</div>
 
 			</div>
-			<div class="col-2">
-				
-			</div>
 		</div>
-	</form>
-</div>
+		<div class="col-2">
+			<textarea name="desciption" class="form-control" rows="2" placeholder="Marque, type d'empaquetage, indication d'achat, ..."></textarea>
+		</div>
+	</div>
+</form>

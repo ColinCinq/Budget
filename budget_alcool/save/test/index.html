@@ -140,6 +140,7 @@
 					<div class="form-group form-row">
 						<label class="col-2 col-form-label">Couleur :</label>
 						<div class="col-2 dropdown color-picker">
+							<input type="hidden" name="color" value="">
 							<button class="icon btn rounded-pill w-75 border-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">.</button>
 							<div class="picker dropdown-menu" data-hsv="41,10,100">
 								<div class="board"><div class="choice"></div></div>
@@ -197,13 +198,9 @@
 					rainbow.slider({
 						value: colors[0],
 				 		min: 0,
-						max: 360,
+						max: 359,
 						slide: (e, ui) => {
 							changeHue(ui.value, $(e.target).parent())
-						},
-						stop: (e) => {
-							let target = $(e.target).parent()
-							changeColour(target.data('hsv'), target)
 						}
 					})
 					choice.draggable({
@@ -214,10 +211,6 @@
 						},
 						drag: (e, ui) => {
 							changeSatVal(ui.position.left, ui.position.top, $(e.target).parent().parent())
-						},
-						stop: (e) => {
-							let target = $(e.target).parent().parent()
-							changeColour(target.data('hsv'), target)
 						}
 					})
 					board.on('click', function(e) {
@@ -253,6 +246,7 @@
 						let hex = rgb2hex(rgb)
 						target.data('hsv', hsv).data('rgb', rgb)
 						target.parent().children('.icon').css('background-color', '#'+hex).css('color', '#'+hex)
+						target.parent().children('input').val('#'+hex)
 					}
 					
 					function hsv2rgb(hsv) {

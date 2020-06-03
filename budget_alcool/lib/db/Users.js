@@ -1,5 +1,6 @@
 module.exports = (conn) => {
 	return {
+<<<<<<< HEAD
 		isAlreadyExisting: (username) => {
 			conn.query('SELECT COUNT(*) FROM Users WHERE username = ?', [username], function(err, rows, fields) {
     		    if (err) throw err
@@ -7,6 +8,23 @@ module.exports = (conn) => {
         		    return false
         		return true
     		})
+=======
+		isAlreadyExisting: function (username, email, callback) {
+			let ret = {username: true, email: true}
+			conn.query('SELECT COUNT(*) AS tmp FROM Users WHERE username = ?', [username], function(err, rows, fields) {
+				if (err) throw err
+				if(rows[0].tmp == 0)
+					ret.username = false
+
+				conn.query('SELECT COUNT(*) AS tmp FROM Users WHERE email = ?', [email], function(err, rows, fields) {
+					if (err) throw err
+					if(rows[0].tmp == 0)
+						ret.email = false
+
+					return callback(null, ret)
+				})
+			})
+>>>>>>> color picker bugfix code clean global et debut ecran setup/alcohol
 		},
 
 		register: (username,password) => {

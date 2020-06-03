@@ -14,7 +14,7 @@ exports.applyConfiguration = function (app) {
 		duration: 30 * 60 * 1000,
 		activeDuration: 5 * 60 * 1000,
 		httpOnly: true,
-	  	ephemeral: true
+		ephemeral: true
 	}))
 	app.use(express.static('public'))
 	app.set('port', process.env.PORT || 8000)

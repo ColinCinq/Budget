@@ -1,12 +1,14 @@
 var express = require('express'),
 	bodyParser = require('body-parser'),
-	session = require('express-session')
+	session = require('express-session'),
+	twig = require('twig')
 	
 // Export method to be compliant with Express 3.0
 exports.applyConfiguration = function (app) {
 
 	app.use(bodyParser.urlencoded({ extended: true }))
 	app.use(bodyParser.json())
+	app.set('view engine', 'twig')
 	app.use(session({
 		secret: 'jughnrjiébHBV@vgyg::vYIV{FTDFDfHIvghjk',
 		resave: true,

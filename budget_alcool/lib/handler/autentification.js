@@ -1,4 +1,4 @@
-module.exports = (db) => {
+module.exports = function (db) {
 
 	return {
 		requiresLogin: function (req, res, next) {
@@ -58,8 +58,7 @@ module.exports = (db) => {
 						}
 					})
 				}
-			}
-			res.end()
+			})
 		},
 
 		renderLogOut: function (req, res) {
